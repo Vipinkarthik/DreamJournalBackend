@@ -1,19 +1,14 @@
-FROM eclipse-temurin:21-jdk-alpine AS build
+# Use a lightweight OpenJDK image
+FROM openjdk:17-jdk-slim
+
+# Set the working directory
 WORKDIR /app
-COPY mvnw .
-COPY mvnw.cmd .
-COPY .mvn .mvn
-COPY pom.xml .
-RUN chmod +x ./mvnw
-RUN ./mvnw dependency:go-offline -B
-COPY src ./src
-RUN ./mvnw clean package -DskipTests
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
-RUN addgroup -g 1001 -S spring && adduser -u 1001 -S spring -G spring
-COPY --from=build /app/target/*.jar app.jar
-RUN chown spring:spring app.jar
-USER spring
+
+# Copy the jar from target/ directory
+COPY target/*.jar app.jar
+
+# Expose port 8080 (optional for local use)
 EXPOSE 8080
-ENV JAVA_OPTS="-Xmx512m -Xms256m -Djava.security.egd=file:/dev/./urandom"
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+
+# Start the application
+CMD ["java", "-jar", "app.jar"]
