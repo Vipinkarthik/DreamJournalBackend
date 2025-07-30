@@ -1,0 +1,43 @@
+# Ignore target directory (will be built inside container)
+target/
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Git
+.git/
+.gitignore
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore temporary files
+*.tmp
+*.temp
+temp_maven.bat
+run-backend.bat
+run-maven.bat
+
+# Ignore documentation
+README.md
+HELP.md
+
+# Ignore Docker files (except Dockerfile)
+docker-compose.yml
+docker-compose.yaml
+
+# Ignore Maven local repository
+.m2/
+
+# Ignore test reports
+test-results/
+coverage/
